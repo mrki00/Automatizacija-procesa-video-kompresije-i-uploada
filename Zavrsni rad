@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+cd /Users/mrki/documents/rad/videos
+
+
+ls *.mov > /Users/mrki/documents/rad/videolist.txt
+
+cd ..
+
+
+size=$(cat /Users/mrki/documents/rad/videolist.txt | wc -c)
+while [ $size -ne 0 ]
+do
+
+
+head -n1 videolist.txt > cvideolist.txt
+
+sed -i -e 1d videolist.txt
+
+
+video_name=$(</Users/mrki/documents/rad/cvideolist.txt)
+
+sed -i -e 1d cvideolist.txt
+
+
+size=$(cat /Users/mrki/documents/rad/videolist.txt | wc -c)
+
+
+ffmpeg -i  /Users/mrki/Documents/rad/Videos/$video_name /Users/mrki/Documents/rad/cVideos/$video_name.mp4
+
+
+gdrive upload /Users/mrki/Documents/rad/cVideos/$video_name.mp4
+
+
+done
